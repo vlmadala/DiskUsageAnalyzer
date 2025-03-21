@@ -1,59 +1,25 @@
-Disk Usage Analyzer
+# main.py
+from scanner.disk_usage import DiskUsageAnalyzer
+from scanner.duplicate_finder import find_duplicate_files, save_duplicate_report
+from scanner.file_operations import save_reports
+from scanner.visualization import plot_disk_usage
 
-Overview
+def main():
+    directory_to_scan = input(r"Enter the directory to scan (e.g., C:\Users\YourUsername\Documents): ")
+    analyzer = DiskUsageAnalyzer(directory_to_scan)
+    analyzer.scan_filesystem()
+    
+    file_sizes, folder_sizes, extension_sizes = analyzer.get_data()
+    duplicate_files = find_duplicate_files(directory_to_scan)
+    save_reports(file_sizes, folder_sizes)
+    save_duplicate_report(duplicate_files)
+    plot_disk_usage(extension_sizes)
+    
+    print("✅ Disk usage analysis completed! Check the 'reports' folder.")
 
-The Disk Usage Analyzer is a Python-based tool that scans a directory and provides insights into file and folder sizes. It generates reports and visualizes disk usage to help users identify large or unused files.
-
-Features
-
-Scans a specified directory for file and folder sizes.
-
-Generates CSV reports for disk usage analysis.
-
-Identifies the largest folders.
-
-Visualizes file type distribution using a bar chart.
-
-Project Structure
-
-Installation & Setup
-
-1. Clone the Repository
-
-2. Install Dependencies
-
-3. Run the Program
-
-Enter the directory to scan when prompted.
-
-Output
-
-Reports Generated
-
-reports/disk_usage_report.csv → Contains file paths, sizes, and creation times.
-
-reports/largest_folders_report.csv → Lists the top 10 largest folders.
-
-reports/disk_usage_chart.png → Visual representation of file type distribution.
-
-Future Enhancements
-
-Cleanup Feature: Automatically suggest or delete large unused files.
-
-Scheduling: Set up automatic periodic scans.
-
-Exclude System Files: Prevent scanning unnecessary system folders.
-
-Contributing
-
-Feel free to fork the repository and submit pull requests for improvements.
-
-License
-
-This project is licensed under the MIT License.
-
-------------------------------------------------------------------------------------------------
-The main.py script imports the DiskUsageAnalyzer class from the scanner.disk_usage module and uses it to scan the filesystem.
+if __name__ == "__main__":
+    main()
+# The main.py script imports the DiskUsageAnalyzer class from the scanner.disk_usage module and uses it to scan the filesystem.
 # The script then saves the collected data to a file using the save_reports function from the scanner.file_operations module.
 # Finally, it visualizes the data using the plot_disk_usage function from the scanner.visualization module.
 # The main function prompts the user to enter a directory to scan, performs the analysis, and displays a completion message.
@@ -82,3 +48,4 @@ The main.py script imports the DiskUsageAnalyzer class from the scanner.disk_usa
 # The script showcases best practices for handling user input, error checking, and data processing in a Python application.
 # The main.py script is a key component of the disk usage analysis application, responsible for coordinating the analysis process and generating reports.
 # The script demonstrates how to structure a Python application using modules and classes to achieve a modular and maintainable design.
+
