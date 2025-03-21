@@ -1,1 +1,12 @@
-__pycache__/\n*.pyc\n*.pyo\nreports/\n*.csv\n*.png\nvenv/
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore reports and logs
+reports/
+*.csv
+*.png
+
+# Ignore virtual environments
+venv/
